@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.xxx.sunflower.data.MemberMapper">
+    <select id="getMembers" resultType="io.xxx.sunflower.model.Member"
+            fetchSize="0" resultSetType="FORWARD_ONLY">
+        select id,
+               card_no,
+               name,
+               mobile,
+               gender,
+               birthday,
+               exp,
+               point,
+               tags,
+               created_time
+        from member
+    </select>
+</mapper>

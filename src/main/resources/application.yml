@@ -3,6 +3,11 @@ spring:
     name: @project.artifactId@
   profiles:
     active: local
+  jpa:
+    properties:
+      hibernate.temp.use_jdbc_metadata_defaults: false
+mybatis:
+  mapper-locations: classpath:/mappers/**/*Mapper.xml
 ---
 spring:
   profiles: local
@@ -10,6 +15,6 @@ spring:
     enabled: true
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/test
-    username:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: dengbin
     password:
