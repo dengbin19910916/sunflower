@@ -2,7 +2,7 @@ spring:
   application:
     name: @project.artifactId@
   profiles:
-    active: local
+    active: pg2
   jpa:
     properties:
       hibernate.temp.use_jdbc_metadata_defaults: false
@@ -10,11 +10,36 @@ mybatis:
   mapper-locations: classpath:/mappers/**/*Mapper.xml
 ---
 spring:
-  profiles: local
+  profiles: pg
   flyway:
     enabled: true
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/postgres
-    username: dengbin
+    username:
     password:
+---
+spring:
+  profiles: pg2
+  flyway:
+    enabled: true
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://192.168.210.146:5432/postgres
+    username: postgres
+    password: postgres
+  redis:
+    host: 192.168.210.146
+    port: 6379
+zookeeper:
+  host: 192.168.210.146:2181
+---
+spring:
+  profiles: mysql
+  flyway:
+    enabled: false
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/sunflower
+    username: root
+    password: root

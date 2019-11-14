@@ -59,8 +59,8 @@ comment on column brand.created_time is '创建时间';
 create table member
 (
     id           serial8 primary key,
-    card_no      varchar(100),
-    name         varchar(100),
+    card_no      varchar(100) collate "C",
+    name         varchar(100) collate "zh_CN",
     mobile       varchar(100),
     gender       int2,
     birthday     timestamp,

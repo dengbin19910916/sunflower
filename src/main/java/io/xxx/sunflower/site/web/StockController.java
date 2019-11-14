@@ -1,29 +1,30 @@
-package io.xxx.sunflower.util;
+package io.xxx.sunflower.site.web;
 
+import io.xxx.sunflower.site.service.StockService;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/stock")
 public class StockController {
 
     private final StringRedisTemplate redisTemplate;
+    private final StockService stockService;
 
-    public StockController(StringRedisTemplate redisTemplate) {
+    public StockController(StringRedisTemplate redisTemplate,
+                           StockService stockService) {
         this.redisTemplate = redisTemplate;
+        this.stockService = stockService;
     }
 
     @GetMapping("/decr")
-    public ResponseEntity<Optional<String>> decr() {
+    public void decr() {
         Long value = redisTemplate.opsForValue().decrement("stock");
-        return value != null && value < 0
-                ? ResponseEntity.status(HttpStatus.NOT_FOUND).build()
-                : ResponseEntity.status(HttpStatus.OK).build();
+        if (value != null && value < 0) {
+            return;
+        }
+        stockService.decr(1L);
     }
 }
